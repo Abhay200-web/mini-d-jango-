@@ -1,19 +1,39 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<div class="col-md-6 offset-md-3">
-<h1>Add Record</h1>
-<br/>
+<div class="col-md-6 mx-auto">
+  <div class="card border-0"
+       style="border-radius:18px;
+              box-shadow:0 12px 30px rgba(0,0,0,0.25);
+              background:linear-gradient(135deg,#fff7ed,#ffffff);">
 
+    <div class="card-header text-center fw-bold"
+         style="background:#c2410c;color:white;border-radius:18px 18px 0 0;">
+      ✏️ Update Customer Record
+    </div>
 
-<form method="POST">
-	{% csrf_token %}
+    <div class="card-body p-4">
+      <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
 
-	{{ form.as_p }}
+        <div class="d-grid mt-4">
+          <button type="submit"
+                  class="btn"
+                  style="background:#c2410c;color:white;font-weight:600;">
+            Update Record
+          </button>
+        </div>
 
-<br/>
-  <button type="submit" class="btn btn-secondary">Update Record</button>
+        <div class="text-center mt-3">
+          <a href="{% url 'home' %}" style="text-decoration:none;color:#c2410c;">
+            Cancel & Go Back
+          </a>
+        </div>
+      </form>
+    </div>
 
-</form>
+  </div>
 </div>
+
 {% endblock %}

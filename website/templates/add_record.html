@@ -1,21 +1,39 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<div class="col-md-6 offset-md-3">
-<h1>Add Record</h1>
-<br/>
+<div class="col-md-6 mx-auto">
+  <div class="card border-0"
+       style="border-radius:18px;
+              box-shadow:0 12px 30px rgba(0,0,0,0.2);
+              background:linear-gradient(135deg,#e0f2fe,#ffffff);">
 
-<form method="POST" action="{% url 'add_record' %}">
-	{% csrf_token %}
+    <div class="card-header text-center fw-bold"
+         style="background:#0284c7;color:white;border-radius:18px 18px 0 0;">
+      ➕ Add New Customer
+    </div>
 
-	{{ form.as_p }}
+    <div class="card-body p-4">
+      <form method="POST" action="{% url 'add_record' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
 
-<br/>
-  <button type="submit" class="btn btn-secondary">Add Record</button>
-   <a href="{% url 'home' %}" class="btn btn-secondary">Back</a>
+        <div class="d-grid mt-4">
+          <button type="submit"
+                  class="btn"
+                  style="background:#0284c7;color:white;font-weight:600;">
+            Save Record
+          </button>
+        </div>
 
-</form>
+        <div class="text-center mt-3">
+          <a href="{% url 'home' %}" style="text-decoration:none;color:#0284c7;">
+            ← Back to Dashboard
+          </a>
+        </div>
+      </form>
+    </div>
 
+  </div>
 </div>
 
 {% endblock %}

@@ -1,66 +1,49 @@
 {% extends 'base.html' %}
-
 {% block content %}
-
 
 {% if user.is_authenticated %}
 
+<h2 class="mb-4 fw-bold">Customer Records</h2>
 
-<table class="table table-striped table-hover table-bordered">
+<div style="overflow-x:auto;">
+<table class="table table-hover table-bordered align-middle"
+       style="border-radius:12px;overflow:hidden;">
   <thead class="table-dark">
     <tr>
-      <th scope="col">Name</th>
-      <th scope="col">Email</th>
-      <th scope="col">Phone</th>
-      <th scope="col">Address</th>
-      <th scope="col">City</th>
-      <th scope="col">State</th>
-      <th scope="col">Pincode</th>
-      <th scope="col">Created At</th>
-      <th scope="col">ID</th>
+      <th>Name</th><th>Email</th><th>Phone</th><th>Address</th>
+      <th>City</th><th>State</th><th>Pincode</th><th>Created</th><th>ID</th>
     </tr>
   </thead>
-<tbody>
-
-
-{% if records %}
+  <tbody>
     {% for record in records %}
-       <tr>
-			<td>{{ record.first_name }} {{ record.last_name }}</td>
-			<td>{{ record.email }}</td>
-			<td>{{ record.phone }}</td>
-			<td>{{ record.address }}</td>
-			<td>{{ record.city }}</td>
-			<td>{{ record.state }}</td>
-			<td>{{ record.pincode }}</td>
-			<td>{{ record.created_at }}</td>
-			<td><a href="{% url 'record' record.id %}">{{ record.id }}</a></td>
-		</tr>
+    <tr>
+      <td class="fw-semibold">{{ record.first_name }} {{ record.last_name }}</td>
+      <td>{{ record.email }}</td>
+      <td>{{ record.phone }}</td>
+      <td>{{ record.address }}</td>
+      <td>{{ record.city }}</td>
+      <td>{{ record.state }}</td>
+      <td>{{ record.pincode }}</td>
+      <td>{{ record.created_at }}</td>
+      <td><a href="{% url 'record' record.id %}">{{ record.id }}</a></td>
+    </tr>
     {% endfor %}
-
-{% endif %}
-
+  </tbody>
+</table>
+</div>
 
 {% else %}
 
-<div class="col-md-6 offset-md-3">
-<h1>Login</h1>
-<br/>
+<div class="col-md-5 mx-auto">
+  <h2 class="fw-bold mb-3 text-center">Login</h2>
 
-<form method="POST" action="{% url 'home' %}">
+  <form method="POST" action="{% url 'home' %}">
     {% csrf_token %}
-
-    <div class="mb-3">
-        <input type="text" class="form-control" name="username" placeholder="Username" required>
-    </div>
-
-    <div class="mb-3">
-        <input type="password" class="form-control" name="password" placeholder="Password" required>
-    </div>
-
-    <button type="submit" class="btn btn-secondary">Login</button>
-</form>
+    <input class="form-control mb-3" name="username" placeholder="Username" required>
+    <input class="form-control mb-3" name="password" type="password" placeholder="Password" required>
+    <button class="btn btn-dark w-100">Login</button>
+  </form>
+</div>
 
 {% endif %}
-
 {% endblock %}
