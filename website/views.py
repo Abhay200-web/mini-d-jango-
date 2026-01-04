@@ -8,36 +8,31 @@ from .models import Record
 import os
 
 
-# HOME (LOGIN + SEARCH + FILTER + PAGINATION)
 
 def home(request):
     records = Record.objects.all().order_by('-created_at')
 
-    # SEARCH & FILTER
-    search_query = request.GET.get('search', '')
-    city_filter = request.GET.get('city', '')
-    state_filter = request.GET.get('state', '')
+ 
+    search_query = request.GET.get('search', '').strip()
 
     if search_query:
         records = records.filter(
             Q(first_name__icontains=search_query) |
             Q(last_name__icontains=search_query) |
             Q(email__icontains=search_query) |
-            Q(phone__icontains=search_query)
+            Q(phone__icontains=search_query) |
+            Q(address__icontains=search_query) |
+            Q(city__icontains=search_query) |
+            Q(state__icontains=search_query) |
+            Q(pincode__icontains=search_query)
         )
 
-    if city_filter:
-        records = records.filter(city__icontains=city_filter)
-
-    if state_filter:
-        records = records.filter(state__icontains=state_filter)
-
-    # PAGINATION
+ 
     paginator = Paginator(records, 5)  
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
-    # LOGIN LOGIC
+    
     if request.method == 'POST':
         user = authenticate(
             request,
@@ -57,13 +52,10 @@ def home(request):
         'records': page_obj,   
         'page_obj': page_obj,
         'search_query': search_query,
-        'city_filter': city_filter,
-        'state_filter': state_filter,
     })
 
 
-
-# LOGOUT
+=
 
 def logout_user(request):
     logout(request)
@@ -73,7 +65,6 @@ def logout_user(request):
 
 
 # REGISTER
-
 def register_user(request):
     form = SignUpForm(request.POST or None)
 
@@ -91,7 +82,7 @@ def register_user(request):
 
 
 
-# VIEW SINGLE RECORD
+# VIEW RECORD
 
 def customer_record(request, pk):
     if request.user.is_authenticated:
@@ -134,7 +125,7 @@ def update_record(request, pk):
     form = AddRecordForm(request.POST or None, request.FILES or None, instance=record)
 
     if form.is_valid():
-        # delete old image if replaced
+        
         if 'image' in request.FILES and old_image and old_image.name != 'records/default.png':
             if os.path.isfile(old_image.path):
                 os.remove(old_image.path)
@@ -156,7 +147,6 @@ def delete_record(request, pk):
 
     record = Record.objects.get(id=pk)
 
-    # delete image file
     if record.image and record.image.name != 'records/default.png':
         if os.path.isfile(record.image.path):
             os.remove(record.image.path)
