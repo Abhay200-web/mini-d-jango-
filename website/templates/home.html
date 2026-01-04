@@ -5,6 +5,7 @@
 
 <h2 class="mb-4 fw-bold">Customer Records</h2>
 
+
 <form method="GET" style="
     background:#f8fafc;
     padding:12px;
@@ -13,32 +14,16 @@
     box-shadow:0 4px 10px rgba(0,0,0,0.08);
 ">
   <div class="row g-2">
-    <div class="col-md-4">
+    <div class="col-md-10">
       <input type="text"
              name="search"
              value="{{ search_query }}"
              class="form-control"
-             placeholder="Search name, email, phone">
-    </div>
-
-    <div class="col-md-3">
-      <input type="text"
-             name="city"
-             value="{{ city_filter }}"
-             class="form-control"
-             placeholder="Filter by city">
-    </div>
-
-    <div class="col-md-3">
-      <input type="text"
-             name="state"
-             value="{{ state_filter }}"
-             class="form-control"
-             placeholder="Filter by state">
+             placeholder="Search name, email, phone, city, state, pincode, address">
     </div>
 
     <div class="col-md-2 d-grid">
-      <button class="btn btn-dark">Apply</button>
+      <button class="btn btn-dark">Search</button>
     </div>
   </div>
 </form>
@@ -77,17 +62,13 @@
 </table>
 </div>
 
-
 <nav aria-label="Page navigation">
   <ul class="pagination justify-content-center mt-3">
 
     {% if page_obj.has_previous %}
       <li class="page-item">
         <a class="page-link"
-           href="?page={{ page_obj.previous_page_number }}
-           {% if search_query %}&search={{ search_query }}{% endif %}
-           {% if city_filter %}&city={{ city_filter }}{% endif %}
-           {% if state_filter %}&state={{ state_filter }}{% endif %}">
+           href="?page={{ page_obj.previous_page_number }}{% if search_query %}&search={{ search_query }}{% endif %}">
           Previous
         </a>
       </li>
@@ -102,10 +83,7 @@
     {% if page_obj.has_next %}
       <li class="page-item">
         <a class="page-link"
-           href="?page={{ page_obj.next_page_number }}
-           {% if search_query %}&search={{ search_query }}{% endif %}
-           {% if city_filter %}&city={{ city_filter }}{% endif %}
-           {% if state_filter %}&state={{ state_filter }}{% endif %}">
+           href="?page={{ page_obj.next_page_number }}{% if search_query %}&search={{ search_query }}{% endif %}">
           Next
         </a>
       </li>
@@ -113,7 +91,6 @@
 
   </ul>
 </nav>
-
 
 {% else %}
 
