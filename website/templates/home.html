@@ -5,6 +5,45 @@
 
 <h2 class="mb-4 fw-bold">Customer Records</h2>
 
+<form method="GET" style="
+    background:#f8fafc;
+    padding:12px;
+    border-radius:10px;
+    margin-bottom:15px;
+    box-shadow:0 4px 10px rgba(0,0,0,0.08);
+">
+  <div class="row g-2">
+    <div class="col-md-4">
+      <input type="text"
+             name="search"
+             value="{{ search_query }}"
+             class="form-control"
+             placeholder="Search name, email, phone">
+    </div>
+
+    <div class="col-md-3">
+      <input type="text"
+             name="city"
+             value="{{ city_filter }}"
+             class="form-control"
+             placeholder="Filter by city">
+    </div>
+
+    <div class="col-md-3">
+      <input type="text"
+             name="state"
+             value="{{ state_filter }}"
+             class="form-control"
+             placeholder="Filter by state">
+    </div>
+
+    <div class="col-md-2 d-grid">
+      <button class="btn btn-dark">Apply</button>
+    </div>
+  </div>
+</form>
+
+
 <div style="overflow-x:auto;">
 <table class="table table-hover table-bordered align-middle"
        style="border-radius:12px;overflow:hidden;">
@@ -27,10 +66,54 @@
       <td>{{ record.created_at }}</td>
       <td><a href="{% url 'record' record.id %}">{{ record.id }}</a></td>
     </tr>
+    {% empty %}
+    <tr>
+      <td colspan="9" class="text-center fw-semibold">
+        No records found
+      </td>
+    </tr>
     {% endfor %}
   </tbody>
 </table>
 </div>
+
+
+<nav aria-label="Page navigation">
+  <ul class="pagination justify-content-center mt-3">
+
+    {% if page_obj.has_previous %}
+      <li class="page-item">
+        <a class="page-link"
+           href="?page={{ page_obj.previous_page_number }}
+           {% if search_query %}&search={{ search_query }}{% endif %}
+           {% if city_filter %}&city={{ city_filter }}{% endif %}
+           {% if state_filter %}&state={{ state_filter }}{% endif %}">
+          Previous
+        </a>
+      </li>
+    {% endif %}
+
+    <li class="page-item disabled">
+      <span class="page-link">
+        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+      </span>
+    </li>
+
+    {% if page_obj.has_next %}
+      <li class="page-item">
+        <a class="page-link"
+           href="?page={{ page_obj.next_page_number }}
+           {% if search_query %}&search={{ search_query }}{% endif %}
+           {% if city_filter %}&city={{ city_filter }}{% endif %}
+           {% if state_filter %}&state={{ state_filter }}{% endif %}">
+          Next
+        </a>
+      </li>
+    {% endif %}
+
+  </ul>
+</nav>
+
 
 {% else %}
 
