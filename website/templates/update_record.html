@@ -2,36 +2,60 @@
 {% block content %}
 
 <div class="col-md-6 mx-auto">
-  <div class="card border-0"
-       style="border-radius:18px;
-              box-shadow:0 12px 30px rgba(0,0,0,0.25);
-              background:linear-gradient(135deg,#fff7ed,#ffffff);">
+  <div style="
+      background:#ffffff;
+      border-radius:18px;
+      box-shadow:0 12px 30px rgba(0,0,0,0.25);
+      padding:30px;
+  ">
 
-    <div class="card-header text-center fw-bold"
-         style="background:#c2410c;color:white;border-radius:18px 18px 0 0;">
-      ✏️ Update Customer Record
-    </div>
+    <h3 style="
+        text-align:center;
+        font-weight:700;
+        margin-bottom:10px;
+        color:#7c2d12;
+    ">
+      ✏️ Update Record
+    </h3>
 
-    <div class="card-body p-4">
-      <form method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
+    <p style="
+        text-align:center;
+        font-size:14px;
+        color:#6b7280;
+        margin-bottom:20px;
+    ">
+      Updating will replace the existing data
+    </p>
 
-        <div class="d-grid mt-4">
-          <button type="submit"
-                  class="btn"
-                  style="background:#c2410c;color:white;font-weight:600;">
-            Update Record
-          </button>
-        </div>
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
 
-        <div class="text-center mt-3">
-          <a href="{% url 'home' %}" style="text-decoration:none;color:#c2410c;">
-            Cancel & Go Back
-          </a>
-        </div>
-      </form>
-    </div>
+      {{ form.as_p }}
+
+      <button type="submit" style="
+          width:100%;
+          margin-top:20px;
+          background:#c2410c;
+          color:white;
+          border:none;
+          padding:12px;
+          border-radius:10px;
+          font-weight:600;
+      ">
+        Update Record
+      </button>
+    </form>
+
+    <a href="{% url 'home' %}" style="
+        display:block;
+        text-align:center;
+        margin-top:15px;
+        text-decoration:none;
+        color:#c2410c;
+        font-weight:500;
+    ">
+      Cancel & Go Back
+    </a>
 
   </div>
 </div>

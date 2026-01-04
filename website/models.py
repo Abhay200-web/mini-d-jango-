@@ -11,5 +11,15 @@ class Record(models.Model):
     state = models.CharField(max_length=50)
     pincode = models.CharField(max_length=50)
 
+
+    image = models.ImageField(
+        upload_to='records/',
+        blank=True,
+        null=True,
+        default='records/default.png'
+    )
+
+
+
     def __str__(self):
         return f"{self.first_name} {self.last_name}"

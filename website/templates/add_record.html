@@ -2,36 +2,51 @@
 {% block content %}
 
 <div class="col-md-6 mx-auto">
-  <div class="card border-0"
-       style="border-radius:18px;
-              box-shadow:0 12px 30px rgba(0,0,0,0.2);
-              background:linear-gradient(135deg,#e0f2fe,#ffffff);">
+  <div style="
+      background:#ffffff;
+      border-radius:18px;
+      box-shadow:0 12px 30px rgba(0,0,0,0.2);
+      padding:30px;
+  ">
 
-    <div class="card-header text-center fw-bold"
-         style="background:#0284c7;color:white;border-radius:18px 18px 0 0;">
-      ➕ Add New Customer
-    </div>
+    <h3 style="
+        text-align:center;
+        font-weight:700;
+        margin-bottom:20px;
+        color:#0f172a;
+    ">
+      ➕ Add New Record
+    </h3>
 
-    <div class="card-body p-4">
-      <form method="POST" action="{% url 'add_record' %}">
-        {% csrf_token %}
-        {{ form.as_p }}
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
 
-        <div class="d-grid mt-4">
-          <button type="submit"
-                  class="btn"
-                  style="background:#0284c7;color:white;font-weight:600;">
-            Save Record
-          </button>
-        </div>
+      {{ form.as_p }}
 
-        <div class="text-center mt-3">
-          <a href="{% url 'home' %}" style="text-decoration:none;color:#0284c7;">
-            ← Back to Dashboard
-          </a>
-        </div>
-      </form>
-    </div>
+      <button type="submit" style="
+          width:100%;
+          margin-top:20px;
+          background:#2563eb;
+          color:white;
+          border:none;
+          padding:12px;
+          border-radius:10px;
+          font-weight:600;
+      ">
+        Save Record
+      </button>
+    </form>
+
+    <a href="{% url 'home' %}" style="
+        display:block;
+        text-align:center;
+        margin-top:15px;
+        text-decoration:none;
+        color:#2563eb;
+        font-weight:500;
+    ">
+      ← Back to Home
+    </a>
 
   </div>
 </div>

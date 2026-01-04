@@ -2,28 +2,58 @@
 {% block content %}
 
 <div class="col-md-7 mx-auto">
-  <div class="card shadow border-0" style="border-radius:18px;">
-    <div class="card-header bg-dark text-white fw-bold">
+
+  <div style="
+      background:#ffffff;
+      border-radius:20px;
+      box-shadow:0 15px 40px rgba(0,0,0,0.25);
+      padding:30px;
+  ">
+
+    <img src="{{ customer_record.image.url }}"
+         alt="Profile Image"
+         style="
+           width:130px;
+           height:130px;
+           border-radius:50%;
+           object-fit:cover;
+           display:block;
+           margin:0 auto 20px auto;
+           border:4px solid #e5e7eb;
+         ">
+
+    <h3 style="
+        text-align:center;
+        font-weight:700;
+        margin-bottom:25px;
+        color:#0f172a;
+    ">
       {{ customer_record.first_name }} {{ customer_record.last_name }}
+    </h3>
+
+    <p><strong>Email:</strong> {{ customer_record.email }}</p>
+    <p><strong>Phone:</strong> {{ customer_record.phone }}</p>
+    <p><strong>Address:</strong> {{ customer_record.address }}</p>
+    <p><strong>City:</strong> {{ customer_record.city }}</p>
+    <p><strong>State:</strong> {{ customer_record.state }}</p>
+    <p><strong>Pincode:</strong> {{ customer_record.pincode }}</p>
+    <p><strong>Created At:</strong> {{ customer_record.created_at }}</p>
+    <p><strong>ID:</strong> {{ customer_record.id }}</p>
+
+    <div style="
+        display:flex;
+        gap:10px;
+        margin-top:25px;
+        justify-content:center;
+        flex-wrap:wrap;
+    ">
+      <a href="{% url 'home' %}" class="btn btn-secondary">Back</a>
+      <a href="{% url 'update_record' customer_record.id %}" class="btn btn-warning">Update</a>
+      <a href="{% url 'delete_record' customer_record.id %}" class="btn btn-danger">Delete</a>
     </div>
 
-    <div class="card-body">
-      <p><strong>Email:</strong> {{ customer_record.email }}</p>
-      <p><strong>Phone:</strong> {{ customer_record.phone }}</p>
-      <p><strong>Address:</strong> {{ customer_record.address }}</p>
-      <p><strong>City:</strong> {{ customer_record.city }}</p>
-      <p><strong>State:</strong> {{ customer_record.state }}</p>
-      <p><strong>Pincode:</strong> {{ customer_record.pincode }}</p>
-      <p><strong>Created:</strong> {{ customer_record.created_at }}</p>
-      <p><strong>ID:</strong> {{ customer_record.id }}</p>
-    </div>
   </div>
 
-  <div class="d-flex gap-2 mt-4">
-    <a class="btn btn-secondary" href="{% url 'home' %}">Back</a>
-    <a class="btn btn-danger" href="{% url 'delete_record' customer_record.id %}">Delete</a>
-    <a class="btn btn-dark" href="{% url 'update_record' customer_record.id %}">Update</a>
-  </div>
 </div>
 
 {% endblock %}
